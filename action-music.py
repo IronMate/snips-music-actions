@@ -34,7 +34,7 @@ def intent_callback_previous(hermes, intent_message):
    
    
 if __name__ == "__main__":
-    sp = Spotify_Controller()
+    sp = spotify_controller.Spotify_Controller()
 
     snips_config = toml.load('/etc/snips.toml')
     if 'mqtt' in snips_config['snips-common'].keys():
