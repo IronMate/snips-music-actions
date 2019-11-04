@@ -1,5 +1,4 @@
 # Bindings for the hermes protocol
 hermes-python>=0.7
 toml
-spotipy
-git+https://github.com/plamere/spotipy.git --upgrade
+git+https://github.com/plamere/spotipy.git
