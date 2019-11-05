@@ -10,9 +10,10 @@ import spotipy.oauth2 as oauth
 import re
 
 
-USER = 'Username'
-ID = 'User developer id'
-SECRET= 'user developer secret'
+USER = 'Missing'
+ID = 'Missing
+SECRET= 'Mising'
+DEVICE='Missing'
 SCOPE= 'user-library-read playlist-read-private playlist-read-collaborative user-modify-playback-state user-read-currently-playing user-read-playback-state'
 URL='http://localhost/'
 
@@ -26,6 +27,7 @@ class SpotifyController:
         USER = config['secret']['user']
         ID = config['secret']['id']
         SECRET = config['secret']['secret']
+        DEVICE = config['secret']['device']
         self.spo = oauth.SpotifyOAuth(client_id=ID,client_secret=SECRET,redirect_uri=URL,scope=SCOPE,cache_path=".cache-{}".format(USER))
         self.sp = spotipy.Spotify(auth=self.get_token())
 
@@ -77,4 +79,4 @@ class SpotifyController:
         self.sp.previous_track()
         
     def start(self):
-        self.sp.start_playback(device_id='Device to play on')
+        self.sp.start_playback(device_id=DEVICE)
