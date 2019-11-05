@@ -10,6 +10,15 @@ MQTT_BROKER_ADDRESS = "localhost:1883"
 MQTT_USERNAME = None
 MQTT_PASSWORD = None
 
+def read_configuration_file():
+    try:
+        cp = configparser.ConfigParser()
+        with io.open("config.ini", encoding="utf-8") as f:
+            cp.read_file(f)
+        return {section: {option_name: option for option_name, option in cp.items(section)}
+                for section in cp.sections()}
+    except (IOError, configparser.Error):
+        return dict()
 
 def add_prefix(intent_name):
     return USERNAME_INTENTS + ":" + intent_name
@@ -34,7 +43,7 @@ def intent_callback_previous(hermes, intent_message):
    
    
 if __name__ == "__main__":
-    sp = spotify_controller.Spotify_Controller()
+    sp = spotify_controller.Spotify_Controller(read_configuration_file())
 
     snips_config = toml.load('/etc/snips.toml')
     if 'mqtt' in snips_config['snips-common'].keys():
