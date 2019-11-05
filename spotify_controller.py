@@ -22,7 +22,10 @@ _auth_finder = re.compile("code=(.*?)$", re.MULTILINE)
 
 class SpotifyController:
 
-    def __init__(self):
+    def __init__(self, config):
+        USER = config['secret']['user']
+        ID = config['secret']['id']
+        SECRET = config['secret']['secret']
         self.spo = oauth.SpotifyOAuth(client_id=ID,client_secret=SECRET,redirect_uri=URL,scope=SCOPE,cache_path=".cache-{}".format(USER))
         self.sp = spotipy.Spotify(auth=self.get_token())
 
