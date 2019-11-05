@@ -29,6 +29,13 @@ class SpotifyController:
         self.spo = oauth.SpotifyOAuth(client_id=ID,client_secret=SECRET,redirect_uri=URL,scope=SCOPE,cache_path=".cache-{}".format(USER))
         self.sp = spotipy.Spotify(auth=self.get_token())
 
+    def __init__(self, config):
+        USER = input("User: ")
+        ID = input("Id: ")
+        SECRET = input("Secret: ")
+        self.spo = oauth.SpotifyOAuth(client_id=ID,client_secret=SECRET,redirect_uri=URL,scope=SCOPE,cache_path=".cache-{}".format(USER))
+        self.sp = spotipy.Spotify(auth=self.get_token())
+        
     def spot(self, token):
         self.token = token
         self.sp = spotipy.Spotify(auth=token)
