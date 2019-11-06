@@ -7,7 +7,7 @@ import spotify_controller
 import toml
 import io
 
-USERNAME_INTENTS = "IronMate"
+USERNAME_INTENTS = "test12345"
 MQTT_BROKER_ADDRESS = "localhost:1883"
 MQTT_USERNAME = None
 MQTT_PASSWORD = None
