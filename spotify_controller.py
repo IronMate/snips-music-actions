@@ -30,13 +30,6 @@ class SpotifyController:
         self.scope= 'user-library-read playlist-read-private playlist-read-collaborative user-modify-playback-state user-read-currently-playing user-read-playback-state'
         self.spo = oauth.SpotifyOAuth(client_id=self.id,client_secret=self.secret,redirect_uri=self.url,scope=self.scope,cache_path=".cache-{}".format(self.user))
         self.sp = spotipy.Spotify(auth=self.get_token())
-
-    def __init__(self, config):
-        USER = input("User: ")
-        ID = input("Id: ")
-        SECRET = input("Secret: ")
-        self.spo = oauth.SpotifyOAuth(client_id=ID,client_secret=SECRET,redirect_uri=URL,scope=SCOPE,cache_path=".cache-{}".format(USER))
-        self.sp = spotipy.Spotify(auth=self.get_token())
         
     def spot(self, token):
         self.token = token
