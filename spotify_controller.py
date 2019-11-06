@@ -9,14 +9,6 @@ import spotipy
 import spotipy.oauth2 as oauth
 import re
 
-
-USER = 'Missing'
-ID = 'Missing
-SECRET= 'Mising'
-DEVICE='Missing'
-SCOPE= 'user-library-read playlist-read-private playlist-read-collaborative user-modify-playback-state user-read-currently-playing user-read-playback-state'
-URL='http://localhost/'
-
 _re_compiled = re.compile("'name':\s'(.*?)'|'name':\s\"(.*?)\"")
 _auth_finder = re.compile("code=(.*?)$", re.MULTILINE)
 
@@ -24,11 +16,19 @@ _auth_finder = re.compile("code=(.*?)$", re.MULTILINE)
 class SpotifyController:
 
     def __init__(self, config):
-        USER = config['secret']['user']
-        ID = config['secret']['id']
-        SECRET = config['secret']['secret']
-        DEVICE = config['secret']['device']
-        self.spo = oauth.SpotifyOAuth(client_id=ID,client_secret=SECRET,redirect_uri=URL,scope=SCOPE,cache_path=".cache-{}".format(USER))
+        if(config == None):
+            self.user = input("User: ")
+            self.id = input("ID: ")
+            self.secret = input("Secret: ")
+            self.device = input("Device: ")
+        else:    
+            self.user = config['secret']['user']
+            self.id = config['secret']['id']
+            self.secret = config['secret']['secret']
+            self.device = config['secret']['device']
+        self.url ='http://localhost/'
+        self.scope= 'user-library-read playlist-read-private playlist-read-collaborative user-modify-playback-state user-read-currently-playing user-read-playback-state'
+        self.spo = oauth.SpotifyOAuth(client_id=self.id,client_secret=self.secret,redirect_uri=self.url,scope=self.scope,cache_path=".cache-{}".format(self.user))
         self.sp = spotipy.Spotify(auth=self.get_token())
 
     def __init__(self, config):
@@ -79,4 +79,4 @@ class SpotifyController:
         self.sp.previous_track()
         
     def start(self):
-        self.sp.start_playback(device_id=DEVICE)
+        self.sp.start_playback(device_id=self.device)
