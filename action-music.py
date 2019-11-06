@@ -5,6 +5,7 @@ import configparser
 from hermes_python.hermes import Hermes, MqttOptions
 import spotify_controller
 import toml
+import io
 
 USERNAME_INTENTS = "IronMate"
 MQTT_BROKER_ADDRESS = "localhost:1883"
@@ -44,7 +45,7 @@ def intent_callback_previous(hermes, intent_message):
    
    
 if __name__ == "__main__":
-    sp = spotify_controller.Spotify_Controller(read_configuration_file())
+    sp = spotify_controller.SpotifyController(read_configuration_file())
 
     snips_config = toml.load('/etc/snips.toml')
     if 'mqtt' in snips_config['snips-common'].keys():
