@@ -22,8 +22,8 @@ def read_configuration_file():
     except (IOError, configparser.Error):
         return dict()
 
-def add_prefix(intent_name):
-    return USERNAME_INTENTS + ":" + intent_name
+def add_prefix(name,intent_name):
+    return name + ":" + intent_name
 
 def intent_callback_play(hermes, intent_message):
     sp.start()
@@ -42,6 +42,14 @@ def intent_callback_next(hermes, intent_message):
 def intent_callback_previous(hermes, intent_message):
     sp.previous_track()
     hermes.publish_end_session(intent_message.session_id, "")
+    
+ def intent_callback_volume(hermes, intent_message):
+    try:
+        level=inten_message["slots"]["value"]
+        sp.volume(level)
+        hermes.publish_end_session(intent_message.session_id, "OK")
+    except:
+        hermes.publish_end_session(intent_message.session_id, "Error")
    
    
 if __name__ == "__main__":
@@ -57,8 +65,9 @@ if __name__ == "__main__":
     mqtt_opts = MqttOptions(username=MQTT_USERNAME, password=MQTT_PASSWORD, broker_address=MQTT_BROKER_ADDRESS)
 
     with Hermes(mqtt_options=mqtt_opts) as h:
-        h.subscribe_intent(add_prefix("play"), intent_callback_play)
-        h.subscribe_intent(add_prefix("pause"), intent_callback_pause)
-        h.subscribe_intent(add_prefix("next"), intent_callback_next)
-        h.subscribe_intent(add_prefix("previous"), intent_callback_previous)
+        h.subscribe_intent(add_prefix(USERNAME_INTENTS,"play"), intent_callback_play)
+        h.subscribe_intent(add_prefix(USERNAME_INTENTS,"pause"), intent_callback_pause)
+        h.subscribe_intent(add_prefix(USERNAME_INTENTS,"next"), intent_callback_next)
+        h.subscribe_intent(add_prefix(USERNAME_INTENTS,"previous"), intent_callback_previous)
+        h.subscribe_intent(add_prefix("Jones7991","volume_to"), intent_callback_volume)
         h.start()
