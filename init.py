@@ -3,7 +3,7 @@
 
 import spotify_controller
 import configparser
-import action-music as am
+import action_music as am
 
 
 
