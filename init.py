@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import spotify_controller
-import configparser
+import configparser, io
 
 def read_configuration_file():
     try:
@@ -16,5 +16,5 @@ def read_configuration_file():
 
 
 if __name__== "__main__":
-    sc = spotify_controller.SpotifyController(am.read_configuration_file())
+    sc = spotify_controller.SpotifyController(read_configuration_file())
 
