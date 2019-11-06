@@ -73,3 +73,8 @@ class SpotifyController:
         
     def start(self):
         self.sp.start_playback(device_id=self.device)
+    
+    def volume(self,level):
+        if level>=100:
+            level =100
+        self.sp.volume(level)
